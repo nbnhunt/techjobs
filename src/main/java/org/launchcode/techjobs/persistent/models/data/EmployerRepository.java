@@ -10,3 +10,6 @@ import javax.transaction.Transactional;
 @Transactional
 public interface EmployerRepository extends CrudRepository<Employer, Integer> {
 }
+
+// 17.3.2: if nothing implements, then CrudRepository stores and retrieves
+// create read update delete
