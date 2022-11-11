@@ -2,6 +2,8 @@ package org.launchcode.techjobs.persistent.models;
 
 import javax.persistence.*;
 
+// new user: techjobs, pw Techjobs1
+
 @Entity
 public class Job{
 
