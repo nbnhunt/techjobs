@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Optional;
 
+// EmployerController contains two handlers with missing information
+// .... which are.....?
+
+
 @Controller
 @RequestMapping("employers")
 public class EmployerController {
