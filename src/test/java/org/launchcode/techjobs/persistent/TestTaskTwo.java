@@ -18,6 +18,15 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+// You'll need to add an import statement for the new controller to test the file
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+// import org.testcontainers.containers.MySQLContainer;
+import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.test.jdbc.JdbcTestUtils;
+import org.springframework.test.web.ModelAndViewAssert;
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

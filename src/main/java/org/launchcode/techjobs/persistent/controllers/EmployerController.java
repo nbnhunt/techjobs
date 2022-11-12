@@ -37,9 +37,9 @@ public class EmployerController {
     // findAll, save, findById
 
     // Controllers 2
-    @GetMapping("add")
+    @GetMapping("")
     public String index (Model model) {
-        model.addAttribute("title", "All Emlployers");
+        model.addAttribute("title", "All Employers");
         model.addAttribute("employer", employerRepository.findAll());
         return "employers/index";
     }
@@ -53,10 +53,11 @@ public class EmployerController {
         return "employers/add";
     }
 
-    @PostMapping("add")
+    @PostMapping("index")
     public String processAddEmployerForm(@ModelAttribute @Valid Employer newEmployer,
                                     Errors errors, Model model) {
-
+        model.addAttribute("employer", employerRepository.save(newEmployer));
+        // model.addAttribute(new Employer());
         if (errors.hasErrors()) {
             return "employers/add";
         }

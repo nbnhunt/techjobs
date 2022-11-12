@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 @Entity
 public class Skill extends AbstractEntity {
 
+    // 15.2 Validation Annotations
     @NotBlank(message = "Description is required")
     @Size(min = 1, max = 100, message = "Descriptions are between 1 and 100 characters")
     private String description;
