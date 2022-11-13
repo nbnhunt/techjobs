@@ -21,26 +21,26 @@ public class SkillController {
 
     @GetMapping("")
     public String index (Model model) {
-        model.addAttribute("title", "All Skills");
-        model.addAttribute("skill", skillRepository.findAll());
+        model.addAttribute("skills", "All Skills");
+        model.addAttribute("skills", skillRepository.findAll());
         return "skills/index";
     }
 
     @GetMapping("add")
     public String displayAddSkillForm(Model model) {
-        // model.addAttribute("skill", skillRepository.findAll());
+        model.addAttribute("skills", skillRepository.findAll());
         model.addAttribute(new Skill());
         return "skills/add";
     }
 
-    @PostMapping("index")
+    @PostMapping("add")
     public String processAddSkillForm(@ModelAttribute @Valid Skill newSkill,
                                          Errors errors, Model model) {
-        model.addAttribute("skills", skillRepository.save(newSkill));
         if (errors.hasErrors()) {
+            model.addAttribute("skills", "All Skills");
             return "skills/add";
         }
-
+        skillRepository.save(newSkill);
         return "redirect:";
     }
 
@@ -50,7 +50,7 @@ public class SkillController {
         Optional optSkill = skillRepository.findById(skill);
         if (optSkill.isPresent()) {
             Skill skillsType = (Skill) optSkill.get();
-            model.addAttribute("skill", skillsType);
+            model.addAttribute("skills", skillsType);
             return "skills/view";
         } else {
             return "redirect:../";

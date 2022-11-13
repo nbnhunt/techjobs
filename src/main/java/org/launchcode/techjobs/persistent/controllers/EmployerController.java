@@ -30,42 +30,38 @@ import java.util.Optional;
 @RequestMapping("employers")
 public class EmployerController {
 
-    // Controllers 1
     @Autowired // dependency injection --> asks Spring Boot for objects named xyz
     private EmployerRepository employerRepository;
 
     // findAll, save, findById
 
-    // Controllers 2
     @GetMapping("")
     public String index (Model model) {
-        model.addAttribute("title", "All Employers");
-        model.addAttribute("employer", employerRepository.findAll());
+        model.addAttribute("employerId", "All Employers");
+        model.addAttribute("employerId", employerRepository.findAll());
         return "employers/index";
     }
 
-
-    // Controllers 3
     @GetMapping("add")
     public String displayAddEmployerForm(Model model) {
-        model.addAttribute("employer", employerRepository.findAll());
+        model.addAttribute("employerId", employerRepository.findAll());
         model.addAttribute(new Employer());
         return "employers/add";
     }
 
-    @PostMapping("index")
+    // 13.3.1 Passing Data to a Template + 17.3.1 CRUD Ops
+    @PostMapping("add")
     public String processAddEmployerForm(@ModelAttribute @Valid Employer newEmployer,
                                     Errors errors, Model model) {
-        model.addAttribute("employer", employerRepository.save(newEmployer));
-        // model.addAttribute(new Employer());
+
         if (errors.hasErrors()) {
+            model.addAttribute("employerId", "All Employer");
             return "employers/add";
         }
-
+        employerRepository.save(newEmployer);
         return "redirect:";
     }
 
-    // Controllers 4
     @GetMapping("view/{employerId}")
     public String displayViewEmployer(Model model, @PathVariable int employerId) {
 

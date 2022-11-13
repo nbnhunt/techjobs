@@ -10,12 +10,26 @@ package org.launchcode.techjobs.persistent.models;
 // Make sure the class has the @Entity annotation,
 // as well as the no-arg constructor required for Hibernate to create an object.
 
+// add a private property jobs of type List<Job> and initialize it to an empty ArrayList
+// Use the @OneToMany and @JoinColumn annotations on the jobs list
+// Recall that this annotation needs a name parameter.
+// What should its value be... ? there is a name parameter in Job?
+// when you're making a one to many relationship the name of the join is the onwer or one: employer, not name, since you just commented that out
+
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Employer extends AbstractEntity {
+
+    @OneToMany
+    @JoinColumn(name = "employer_id")
+    private final List<Job> jobs = new ArrayList<>();
 
     @NotBlank(message = "Please enter a location")
     @Size(min = 1, max = 100, message = "Location requirements are between 1 and 100 characters")
