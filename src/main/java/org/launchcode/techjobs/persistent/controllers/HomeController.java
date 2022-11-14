@@ -59,15 +59,11 @@ public class HomeController {
         return "add";
     }
 
-    // UNDONE: changed int to Integer for employerId to use "==" in if/then statement
-
     // In processAddJobForm, add code inside of this method
     // SO THAT the CHOSEN employer object
     // BECOMES affiliated with the new job.
     // You will need to select the employer using the request parameter --> employerId
     // this is the loop from the video?
-
-    // Make setEmployer return object to get rid of angry lines under newJob.
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
                                        Errors errors, Model model,
@@ -76,18 +72,28 @@ public class HomeController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
+            model.addAttribute("employer", employerRepository.findAll());
+            model.addAttribute("skills", skillRepository.findAll());
             return "add";
+        } else {
+            Optional<Employer> optEmployer = employerRepository.findById(employerId);
+            if (optEmployer.isEmpty()) {
+                model.addAttribute("title", "Missing " + employerId);
+            } else {
+                List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+                newJob.setEmployer(optEmployer.get());
+                newJob.setSkills(skillObjs);
+                model.addAttribute("job", jobRepository.save(newJob));
+            }
         }
-        Optional optEmployer = employerRepository.findById(employerId);
-        List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
-        newJob.setSkills(skillObjs);
-        model.addAttribute("job", jobRepository.save(newJob));
         return "redirect:";
     }
 
     @GetMapping("view/{jobId}")
     public String displayViewJob(Model model, @PathVariable int jobId) {
 
+        //Optional listJobs = jobRepository.findById(jobId);
+        model.addAttribute("jobs", jobRepository.findById(jobId));
         return "view";
     }
 

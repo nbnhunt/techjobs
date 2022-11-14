@@ -17,9 +17,10 @@ public class Job extends AbstractEntity {
     @GeneratedValue
     private int id;
 
+
     private String name;*/
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Employer employer;
     @ManyToMany//(mappedBy = "jobs")
     private List<Skill> skills = new ArrayList<>();
