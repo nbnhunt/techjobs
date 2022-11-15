@@ -45,12 +45,12 @@ public class SkillController {
     }
 
     @GetMapping("view/{skills}")
-    public String displayViewSkill(Model model, @PathVariable int skill) {
+    public String displayViewSkill(Model model, @PathVariable("skills") int skill) {
 
-        Optional optSkill = skillRepository.findById(skill);
+        Optional<Skill> optSkill = skillRepository.findById(skill);
         if (optSkill.isPresent()) {
             Skill skillsType = (Skill) optSkill.get();
-            model.addAttribute("skills", skillsType);
+            model.addAttribute("skill", skillsType);
             return "skills/view";
         } else {
             return "redirect:../";
