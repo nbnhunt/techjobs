@@ -1,4 +1,4 @@
-# techjobs-persistent-java-graded
+# Techjobs
 
 This was the final project in LC101. This code is of a website which features search functionality, SQL database connection, and a thorough use of Java classes, inheritance, polymorphism, etc.
 
